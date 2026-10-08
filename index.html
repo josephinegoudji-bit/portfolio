@@ -85,6 +85,11 @@ html[data-lang="en"] [lang="fr"]:not([data-keep]){display:none !important}
 @media (prefers-reduced-motion: reduce){ .btn{transition:none} .btn:hover{transform:none} }
 
 /* hero */
+.hero-identity{display:flex;align-items:center;gap:24px;min-width:0}
+.hero-portrait{display:block;width:144px;height:144px;flex:0 0 144px;object-fit:cover;object-position:50% 25%;border-radius:50%;border:2px solid var(--accent);padding:4px;background:var(--surface)}
+.hero-identity h1{min-width:0;margin:0;font-size:clamp(2rem,3.5vw,3.8rem)}
+@media(max-width:600px){.hero-identity{flex-direction:column;align-items:flex-start;gap:18px}.hero-portrait{width:128px;height:128px;flex-basis:128px}.hero-identity h1{font-size:clamp(2rem,8vw,3rem)}}
+
 .hero{padding-block:clamp(56px,10vw,120px) clamp(48px,7vw,90px)}
 .hero-grid{display:grid;gap:clamp(28px,5vw,64px);grid-template-columns:1.25fr .85fr;align-items:start}
 @media (max-width: 860px){ .hero-grid{grid-template-columns:1fr} }
@@ -241,7 +246,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:space-bet
   <div class="wrap hero-grid">
     <div class="hero-inner fade">
       <span class="eyebrow"><span lang="fr">Cheffe de projet marketing digital</span><span lang="en">Digital marketing project manager</span></span>
-      <h1>Joséphine Goudji</h1>
+      <div class="hero-identity"><img class="hero-portrait" src="src/assets/josephine-portrait.jpeg" alt="Joséphine Goudji" width="144" height="144" fetchpriority="high"><h1>Joséphine Goudji</h1></div>
       <p class="sub"><span lang="fr">SEO/GEO, contenu &amp; développement digital</span><span lang="en">SEO/GEO, content &amp; digital growth</span></p>
       <p class="tagline"><span lang="fr">Comprendre votre métier. Créer du contenu qui compte. Attirer les bons clients.</span><span lang="en">Understand your business. Create content that counts. Attract the right customers.</span></p>
       <p class="intro"><span lang="fr">J’aime rechercher, comprendre et rendre les choses accessibles. Après deux ans en SEO chez Leroy Merlin France, je développe des projets qui mêlent analyse, création de contenu et compréhension des besoins clients.</span><span lang="en">I like researching, understanding and making things accessible. After two years in SEO at Leroy Merlin France, I build projects that combine analysis, content creation and a close reading of customer needs.</span></p>
