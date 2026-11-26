@@ -41,6 +41,39 @@ body{background:var(--vert)}
 .mv:focus-visible{outline:none;box-shadow:none}
 .mv:focus-visible .mv-disc{outline:3px solid #fff;outline-offset:4px;box-shadow:0 0 0 8px var(--jaune)}
 
+/* Téléphone : la portée est horizontale, on la fait glisser du doigt */
+.swipe-hint{display:none}
+@media (max-width:760px){
+  .score{padding-bottom:26px;min-height:100svh}
+  .hud{position:absolute}
+  .polaroid{position:absolute;left:auto;right:16px;top:208px;margin:0;width:92px;--r:5deg}
+  .greet .role{max-width:63%}
+  .greet .punch{max-width:63%}
+  .sc-world{margin-top:28px}
+  .track{display:flex;flex-direction:row;gap:0;padding:0;height:372px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .track::-webkit-scrollbar{display:none}
+  .track::before,.track::after{content:"";position:static;flex:0 0 12vw;width:auto;height:auto;background:none;box-shadow:none}
+  .lines{display:block;position:absolute;left:0;top:150px;height:125px;width:calc(12vw*2 + 76vw*10);pointer-events:none}
+  .lines i{position:absolute;left:0;right:0;height:5px;border-radius:3px;background:#fff;opacity:.92}
+  .lines i:nth-child(1){top:0}.lines i:nth-child(2){top:30px}.lines i:nth-child(3){top:60px}.lines i:nth-child(4){top:90px}.lines i:nth-child(5){top:120px}
+  .lines b{position:absolute;top:-2px;width:3px;height:129px;border-radius:2px;background:#fff;opacity:.7;left:calc(12vw + (var(--k) + 1)*76vw)}
+  .mv{flex:0 0 76vw;height:100%;min-height:0;scroll-snap-align:center;scroll-snap-stop:always;text-align:center;opacity:.6;transition:opacity .3s}
+  .mv.on{opacity:1}
+  .mv-disc{left:50%;top:calc(212px + var(--p)*14px);translate:-50% -50%;width:62px;height:62px;transition:transform .35s var(--ease)}
+  .mv.on .mv-disc{transform:scale(1.16);outline:4px solid var(--jaune);outline-offset:5px}
+  .mv-cap{display:block;position:static}
+  .mv-title{font-size:1.95rem;padding-top:6px}
+  .mv-text{max-width:none;max-height:4.2em;overflow:hidden;margin:.2rem auto 0;padding:0 10px;font-size:.92rem;line-height:1.4}
+  .mv-go{position:absolute;left:50%;top:300px;translate:-50% 0;margin:0}
+  .mv-shot,.mv-start{display:none}
+  .mv-contact{flex:0 0 76vw;scroll-snap-align:center;align-self:flex-start;margin:70px 0 0;padding:16px;min-width:0;text-align:left}
+  .swipe-hint{display:block;margin:10px 0 0;text-align:center;font:700 1.5rem/1.1 var(--main);color:#fff}
+  .dots{display:flex;justify-content:center;gap:2px;margin-top:8px}
+  .dots button{width:26px;height:26px;padding:0;border:0;background:transparent;display:grid;place-items:center}
+  .dots button::before{content:"";width:12px;height:12px;border:2px solid #fff;border-radius:50%;transition:background .3s,transform .3s var(--ease)}
+  .dots button[aria-current="step"]::before{background:var(--jaune);border-color:var(--jaune);transform:scale(1.35)}
+}
+
 /* Ordinateur : 3D, la caméra glisse le long de la portée */
 @media (min-width:761px){
   html.js .score{height:100svh;min-height:660px;overflow:hidden;padding:0;cursor:grab;touch-action:pan-y}
@@ -95,7 +128,6 @@ body{background:var(--vert)}
   .sky{left:50%}
   .mv:hover .mv-disc{filter:brightness(1.05)}
 }
-@media (max-width:760px){.hud{position:absolute}}
 @media (min-width:761px) and (max-width:1100px){html.js .sc-world{perspective:1000px}html.js .track{transform:rotateY(26deg) translateX(calc(var(--cam,0)*-1px))}.score{--step:440}}
   .still *{animation:none!important;transition:none!important}
 @media (min-width:761px){.polaroid{left:57vw;top:64px;--r:5deg}}
@@ -156,6 +188,7 @@ body{background:var(--vert)}
   </div>
 
   <p class="hint" id="hint"><span lang="fr">Défiler, glisser ou touches fléchées</span><span lang="en">Scroll, drag or use the arrow keys</span></p>
+  <p class="swipe-hint"><span lang="fr">Fais glisser la partition →</span><span lang="en">Swipe along the score →</span></p>
   <nav class="dots" id="dots" aria-label="Mouvements / Movements"><button type="button" data-go="0" aria-label="1 / 9"><span class="sr-only"><span lang="fr">SEO à grande échelle</span><span lang="en">SEO at scale</span></span></button><button type="button" data-go="1" aria-label="2 / 9"><span class="sr-only"><span lang="fr">Audits &amp; missions</span><span lang="en">Audits &amp; missions</span></span></button><button type="button" data-go="2" aria-label="3 / 9"><span class="sr-only"><span lang="fr">GEO</span><span lang="en">GEO</span></span></button><button type="button" data-go="3" aria-label="4 / 9"><span class="sr-only"><span lang="fr">JOPA Music</span><span lang="en">JOPA Music</span></span></button><button type="button" data-go="4" aria-label="5 / 9"><span class="sr-only"><span lang="fr">Oseria</span><span lang="en">Oseria</span></span></button><button type="button" data-go="5" aria-label="6 / 9"><span class="sr-only"><span lang="fr">International</span><span lang="en">International</span></span></button><button type="button" data-go="6" aria-label="7 / 9"><span class="sr-only"><span lang="fr">Contenu</span><span lang="en">Content</span></span></button><button type="button" data-go="7" aria-label="8 / 9"><span class="sr-only"><span lang="fr">Recommandation</span><span lang="en">Reference</span></span></button><button type="button" data-go="8" aria-label="9 / 9"><span class="sr-only"><span lang="fr">Échangeons</span><span lang="en">Let’s talk</span></span></button></nav>
 </div>
 
@@ -620,8 +653,19 @@ body{background:var(--vert)}
     dots.forEach(function(b,i){if(i===cur)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});
     var cbx=d.getElementById('mv-contact'); if(cbx)cbx.classList.toggle('on',cur===N-1);
   }
+  var track=d.getElementById('track'), lockUntil=0;
+  function slideW(){return (mv[0]&&mv[0].offsetWidth)||1}
+  function phoneIdx(){return Math.max(0,Math.min(N-1,Math.round(track.scrollLeft/slideW())))}
   function go(k,quiet){
-    k=Math.max(0,Math.min(N-1,k)); var changed=k!==cur; cur=k; stepPx(); target=k*step; mark();
+    k=Math.max(0,Math.min(N-1,k));
+    if(!wide.matches){
+      var ch=k!==cur; cur=k; mark();
+      if(ch&&!quiet){JG.note(FREQ[k],0,1.1,.09)}
+      var left=k*slideW(); if(Math.abs(track.scrollLeft-left)>2){lockUntil=Date.now()+((quiet||JG.reduce)?0:750);track.scrollTo({left:left,behavior:(quiet||JG.reduce)?'auto':'smooth'})}
+      if(ch&&hint)hint.classList.add('gone');
+      return;
+    }
+    var changed=k!==cur; cur=k; stepPx(); target=k*step; mark();
     if(changed&&!quiet)JG.note(FREQ[k],0,1.2,.1);
     if(changed&&hint)hint.classList.add('gone');
     if(wide.matches&&!raf)raf=requestAnimationFrame(tick);
@@ -654,22 +698,21 @@ body{background:var(--vert)}
   mv.forEach(function(m,i){m.addEventListener('focus',function(){if(wide.matches&&!JG.current())go(i)})});
   /* un clic sur une note : la caméra y glisse, puis la preuve s'ouvre */
   mv.forEach(function(m,i){m.addEventListener('click',function(e){
-    if(!wide.matches){JG.note(FREQ[i],0,1.1,.1);return}
+    if(!wide.matches){
+      if(i!==cur){e.preventDefault();e.stopImmediatePropagation();go(i)}else{JG.note(FREQ[i],0,1.1,.09)}
+      return;
+    }
     if(i===cur)return;
     e.preventDefault();e.stopImmediatePropagation();
     go(i); setTimeout(function(){JG.open(m.getAttribute('data-open'),null,m)},JG.reduce?0:620);
   },true)});
   dots.forEach(function(b,i){b.addEventListener('click',function(){go(i)})});
-  /* téléphone : la note qui arrive au milieu de l'écran joue sa hauteur */
-  if('IntersectionObserver' in window){
-    var lastP=-1,lastT=0;
-    var po=new IntersectionObserver(function(es){es.forEach(function(e){
-      if(!e.isIntersecting||wide.matches||JG.current())return;
-      var k=+e.target.getAttribute('data-k'),now=Date.now();
-      if(k!==lastP&&now-lastT>350){lastP=k;lastT=now;JG.note(FREQ[k],0,1.0,.08)}
-    })},{rootMargin:'-42% 0px -42% 0px',threshold:0});
-    mv.forEach(function(m){po.observe(m)});
-  }
+  /* téléphone : en faisant glisser, la note qui arrive au centre joue sa hauteur */
+  var tick2=0;
+  track.addEventListener('scroll',function(){
+    if(wide.matches||tick2||Date.now()<lockUntil)return;
+    tick2=requestAnimationFrame(function(){tick2=0;var k=phoneIdx();if(k!==cur){cur=k;mark();JG.note(FREQ[k],0,1.0,.09);if(hint)hint.classList.add('gone')}});
+  },{passive:true});
   wide.addEventListener&&wide.addEventListener('change',function(){stepPx();target=cur*step;cam=target;paint()});
   stepPx();
   var at=/[?&]at=(\d)/.exec(location.search); go(at?+at[1]:0,true);

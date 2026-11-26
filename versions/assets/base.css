@@ -179,6 +179,11 @@ summary:hover{box-shadow:var(--autocollant)}
 .contact-plain a{text-decoration:underline}
 .panel-foot{margin:2.4rem 0 .6rem;padding-top:1.2rem;border-top:3px dashed var(--points);display:flex;flex-wrap:wrap;gap:.7rem}
 
+/* ---------- Invitation à activer le son ---------- */
+.snd-ask{position:fixed;z-index:45;top:max(66px,calc(env(safe-area-inset-top) + 58px));right:max(12px,env(safe-area-inset-right));max-width:min(260px,calc(100vw - 24px));padding:.55rem .8rem;border:2px solid var(--vert-nuit);border-radius:12px;background:var(--jaune-postit);color:var(--vert-nuit);font:700 1.2rem/1.15 var(--main);box-shadow:var(--autocollant);text-align:center;transform:rotate(-1.5deg)}
+.snd.ask{animation:ask 1.2s ease-in-out 3}
+@keyframes ask{50%{transform:scale(1.18)}}
+
 /* ---------- Lightbox de la capture ---------- */
 dialog.lightbox{width:min(1200px,94vw);max-height:92vh;padding:0;border:2px solid var(--vert-nuit);border-radius:14px;background:var(--papier);color:var(--vert-nuit);overflow:auto}
 dialog.lightbox::backdrop{background:rgba(0,0,0,.8)}

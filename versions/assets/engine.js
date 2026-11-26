@@ -62,7 +62,19 @@
     if (ctx.state !== 'running') { var r = ctx.resume(); if (r && r.catch) r.catch(function () {}); }
     return ctx;
   }
+  /* Une molette ou un glissement ne débloquent pas le son : on invite à toucher l'écran une fois */
+  var asked = false;
+  function askTap() {
+    if (asked || !soundOn || unlocked) return; asked = true;
+    var b = d.createElement('div'); b.className = 'snd-ask'; b.setAttribute('role', 'status');
+    b.innerHTML = '<span lang="fr">Touche ou clique une fois pour activer le son</span><span lang="en">Tap or click once to turn sound on</span>';
+    d.body.appendChild(b); if (sndBtn) sndBtn.classList.add('ask');
+    var gone = function () { b.remove(); if (sndBtn) sndBtn.classList.remove('ask'); };
+    setTimeout(gone, 6000);
+    ['touchend', 'pointerup', 'click', 'keydown'].forEach(function (t) { d.addEventListener(t, gone, { once: true, capture: true }); });
+  }
   function violin(freq, at, dur, vol) {
+    if (soundOn && !unlocked) { askTap(); return; }
     if (!soundOn || !unlocked) return; var c = audio(); if (!c) return;
     var t = c.currentTime + (at || 0); dur = dur || 1.1; vol = vol || .11;
     var o1 = c.createOscillator(), o2 = c.createOscillator(), lfo = c.createOscillator(), lg = c.createGain(),
@@ -87,6 +99,7 @@
   }
   /* Bruit de page qu'on tourne : du papier qui frotte (bruit filtré, jamais de fichier audio) */
   function paper(kind) {
+    if (soundOn && !unlocked) { askTap(); return; }
     if (!soundOn || !unlocked) return; var c = audio(); if (!c) return; var t = c.currentTime;
     var open = kind === 'open', dur = open ? .62 : .42, len = Math.floor(c.sampleRate * dur);
     var buf = c.createBuffer(1, len, c.sampleRate), ch = buf.getChannelData(0), i;
