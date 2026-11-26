@@ -62,17 +62,14 @@
     if (ctx.state !== 'running') { var r = ctx.resume(); if (r && r.catch) r.catch(function () {}); }
     return ctx;
   }
-  /* Le défilement (molette, glissement du doigt) ne débloque jamais le son : c'est une règle des navigateurs.
-     On l'affiche donc tout de suite, sous forme d'une pastille à toucher qui fait entendre deux notes. */
+  /* Le défilement (molette, glissement du doigt) ne peut pas démarrer le son (règle des navigateurs) : le premier toucher ou clic le débloque.
+     Aucune bulle n'est affichée ; seul le bouton haut-parleur pulse brièvement tant que le son n'est pas débloqué. */
   var asked = false;
   function askTap() {
     if (asked || !soundOn || unlocked) return; asked = true;
-    var b = d.createElement('button'); b.type = 'button'; b.className = 'snd-ask';
-    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span lang="fr">Touche pour activer le son</span><span lang="en">Tap to turn sound on</span>';
-    d.body.appendChild(b); if (sndBtn) sndBtn.classList.add('ask');
-    var done = false, gone = function () { if (done) return; done = true; b.remove(); if (sndBtn) sndBtn.classList.remove('ask'); };
-    b.addEventListener('click', function () { unlock(); violin(392, 0, .9, .09); violin(587.33, .22, 1.1, .09); gone(); });
-    setTimeout(gone, 20000);
+    if (!sndBtn) return; sndBtn.classList.add('ask');
+    var gone = function () { sndBtn.classList.remove('ask'); };
+    setTimeout(gone, 8000);
     ['touchend', 'pointerup', 'click', 'keydown'].forEach(function (t) { d.addEventListener(t, function () { setTimeout(gone, 60); }, { once: true, capture: true }); });
   }
   setTimeout(askTap, 900);
