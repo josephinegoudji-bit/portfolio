@@ -712,11 +712,11 @@ html.js.mob-anim .seen .st-in{opacity:1}
       <p class="secondary"><span lang="fr">Également ouverte aux missions freelance et aux CDD en lien avec le SEO/GEO, le contenu et le développement digital.</span><span lang="en">Also open to freelance assignments and fixed-term contracts related to SEO/GEO, content and digital growth.</span></p>
       <div class="contact-links">
         <a class="btn solid" href="https://www.linkedin.com/in/jos%C3%A9phine-goudji/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="https://wa.me/33651691050" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn" href="https://wa.me/33651691050?text=Bonjour%20Jos%C3%A9phine%2C%20j%E2%80%99ai%20d%C3%A9couvert%20votre%20portfolio%20et%20j%E2%80%99aimerais%20%C3%A9changer%20avec%20vous." data-href-fr="https://wa.me/33651691050?text=Bonjour%20Jos%C3%A9phine%2C%20j%E2%80%99ai%20d%C3%A9couvert%20votre%20portfolio%20et%20j%E2%80%99aimerais%20%C3%A9changer%20avec%20vous." data-href-en="https://wa.me/33651691050?text=Hi%20Jos%C3%A9phine%2C%20I%20came%20across%20your%20portfolio%20and%20I%E2%80%99d%20like%20to%20get%20in%20touch." target="_blank" rel="noopener">WhatsApp</a>
       </div>
       <div class="contact-plain">
         <span><span lang="fr">Téléphone :</span><span lang="en">Phone:</span> <a href="tel:+33651691050"><code>+33 6 51 69 10 50</code></a></span>
-        <span><span lang="fr">E-mail :</span><span lang="en">Email:</span> <a href="mailto:josephinegoudji@gmail.com"><code>josephinegoudji@gmail.com</code></a></span>
+        <span><span lang="fr">E-mail :</span><span lang="en">Email:</span> <a href="mailto:josephinegoudji@gmail.com?subject=Votre%20portfolio" data-href-fr="mailto:josephinegoudji@gmail.com?subject=Votre%20portfolio" data-href-en="mailto:josephinegoudji@gmail.com?subject=Your%20portfolio"><code>josephinegoudji@gmail.com</code></a></span>
         <span><span lang="fr">Basée à Lille, France · Mobile à l’international</span><span lang="en">Based in Lille, France · Open to relocation</span></span>
       </div>
     </div></div></div>
@@ -763,7 +763,7 @@ html.js.mob-anim .seen .st-in{opacity:1}
     timers.forEach(clearTimeout);timers=[];
     setTimeout(function(){if(s>0){stampNow(f.left);stampNow(f.right)}},delay);
   }
-  function go(n,quiet){n=Math.max(0,Math.min(MAX,n));if(n===s)return;s=n;render(quiet)}
+  function go(n,quiet){n=Math.max(0,Math.min(MAX,n));if(n===s)return;var was=s;s=n;if(!quiet)JG.paper(was===0||n===0?'open':'flip');render(quiet)}
   prev.addEventListener('click',function(){go(s-1)});
   next.addEventListener('click',function(){go(s+1)});
   dots.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-s'))})});

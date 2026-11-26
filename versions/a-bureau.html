@@ -24,8 +24,8 @@ body{background:var(--vert)}
 .scene::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.09;pointer-events:none;mix-blend-mode:multiply}
 
 /* Le bureau */
-.stage{position:absolute;inset:0;perspective:1700px;perspective-origin:calc(50% + var(--px,0)*1%) 8%}
-.desk{position:absolute;left:50%;top:var(--dtop,39%);width:var(--dw,1240px);height:660px;margin-left:calc(var(--dw,1240px)/-2);transform-origin:50% 0;transform:rotateX(var(--tilt));transform-style:preserve-3d;background:var(--papier-points);border:8px solid var(--vert-nuit);border-radius:30px;box-shadow:inset 0 0 0 6px #DCE6E0,0 70px 90px -40px rgba(0,0,0,.6)}
+.stage{position:absolute;inset:0;perspective:calc(1700px*var(--u));perspective-origin:calc(50% + var(--px,0)*1%) 8%}
+.desk{position:absolute;left:50%;top:var(--dtop,39%);width:calc(1240px*var(--u));height:calc(660px*var(--u));margin-left:calc(-620px*var(--u));transform-origin:50% 0;transform:rotateX(var(--tilt));transform-style:preserve-3d;background:var(--papier-points);border:8px solid var(--vert-nuit);border-radius:30px;box-shadow:inset 0 0 0 6px #DCE6E0,0 70px 90px -40px rgba(0,0,0,.6)}
 .desk::before{content:"";position:absolute;inset:0;border-radius:27px;background:var(--grain);opacity:.1;pointer-events:none}
 .doodle{position:absolute;pointer-events:none}
 
@@ -42,7 +42,7 @@ body{background:var(--vert)}
 .spot.lie .art svg{filter:drop-shadow(2px 4px 2px rgba(0,0,0,.28))}
 .spot.lie:hover .art,.spot.lie:focus-visible .art{transform:translateZ(26px) rotate(calc(var(--r,0deg) + 2deg))}
 .spot.lie .tag{top:calc(var(--h)*var(--u)*.5px + 6px)}
-.tag{position:absolute;left:0;top:0;translate:-50% 14px;white-space:nowrap;font:700 clamp(1.4rem,2.1vw,2rem)/1 var(--main);color:var(--vert-nuit);text-decoration:underline;text-decoration-color:var(--jaune);text-decoration-thickness:.3em;text-underline-offset:-.1em;text-decoration-skip-ink:none;transform:rotate(-3deg)}
+.tag{position:absolute;left:0;top:0;translate:-50% 14px;white-space:nowrap;font:700 clamp(1.05rem,min(2.1vw,3.3vh),2rem)/1 var(--main);color:var(--vert-nuit);text-decoration:underline;text-decoration-color:var(--jaune);text-decoration-thickness:.3em;text-underline-offset:-.1em;text-decoration-skip-ink:none;transform:rotate(-3deg)}
 @keyframes land{0%{opacity:0;transform:translateY(-440px) rotate(-8deg)}55%{opacity:1}72%{transform:translateY(10px) rotate(1.5deg)}100%{opacity:1;transform:none}}
 @keyframes landflat{0%{opacity:0;transform:translateZ(420px) rotate(calc(var(--r,0deg) - 14deg)) scale(1.15)}60%{opacity:1}100%{opacity:1;transform:rotate(var(--r,0deg))}}
 @keyframes shadow-in{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
@@ -50,7 +50,7 @@ body{background:var(--vert)}
 /* Portable lumineux : « commence ici » */
 .lit{fill:none;stroke:var(--jaune);stroke-width:6;opacity:0;animation:lit 2.6s ease-in-out 1.4s 2 both}
 @keyframes lit{0%,100%{opacity:0}45%{opacity:1}}
-.start{position:absolute;color:var(--vert);font:700 clamp(1.3rem,1.8vw,1.7rem)/1 var(--main);white-space:nowrap}
+.start{position:absolute;color:var(--vert);font:700 clamp(1.05rem,min(1.8vw,2.9vh),1.7rem)/1 var(--main);white-space:nowrap}
 .start svg{position:absolute;left:100%;top:30%;width:74px;height:56px;overflow:visible}
 
 /* Le violon joue */
@@ -82,11 +82,9 @@ body{background:var(--vert)}
   .start svg{display:none}
   .greet h1{font-size:2.6rem}
 }
-@media (min-width:761px) and (max-width:1180px){:root{--u:.8;--dw:1060px}.greet{max-width:44vw}}
-@media (min-width:761px) and (max-height:830px){:root{--dtop:37%}.desk{height:560px}}
-@media (min-width:761px) and (max-height:740px){.desk{height:490px}}
+@media (min-width:761px) and (max-width:1180px){:root{--u:.8}.greet{max-width:44vw}}
 @media (min-width:761px){.spot.lie[data-open="geo"] .tag{white-space:normal;width:6.2em;text-align:center;line-height:1.05}}
-@media (min-width:761px) and (max-width:960px){:root{--u:.64;--dw:900px}}
+@media (min-width:761px) and (max-width:960px){:root{--u:.64}}
 .still *{animation:none!important;transition:none!important}
 </style>
 </head>
@@ -678,11 +676,11 @@ body{background:var(--vert)}
       <p class="secondary"><span lang="fr">Également ouverte aux missions freelance et aux CDD en lien avec le SEO/GEO, le contenu et le développement digital.</span><span lang="en">Also open to freelance assignments and fixed-term contracts related to SEO/GEO, content and digital growth.</span></p>
       <div class="contact-links">
         <a class="btn solid" href="https://www.linkedin.com/in/jos%C3%A9phine-goudji/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="https://wa.me/33651691050" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn" href="https://wa.me/33651691050?text=Bonjour%20Jos%C3%A9phine%2C%20j%E2%80%99ai%20d%C3%A9couvert%20votre%20portfolio%20et%20j%E2%80%99aimerais%20%C3%A9changer%20avec%20vous." data-href-fr="https://wa.me/33651691050?text=Bonjour%20Jos%C3%A9phine%2C%20j%E2%80%99ai%20d%C3%A9couvert%20votre%20portfolio%20et%20j%E2%80%99aimerais%20%C3%A9changer%20avec%20vous." data-href-en="https://wa.me/33651691050?text=Hi%20Jos%C3%A9phine%2C%20I%20came%20across%20your%20portfolio%20and%20I%E2%80%99d%20like%20to%20get%20in%20touch." target="_blank" rel="noopener">WhatsApp</a>
       </div>
       <div class="contact-plain">
         <span><span lang="fr">Téléphone :</span><span lang="en">Phone:</span> <a href="tel:+33651691050"><code>+33 6 51 69 10 50</code></a></span>
-        <span><span lang="fr">E-mail :</span><span lang="en">Email:</span> <a href="mailto:josephinegoudji@gmail.com"><code>josephinegoudji@gmail.com</code></a></span>
+        <span><span lang="fr">E-mail :</span><span lang="en">Email:</span> <a href="mailto:josephinegoudji@gmail.com?subject=Votre%20portfolio" data-href-fr="mailto:josephinegoudji@gmail.com?subject=Votre%20portfolio" data-href-en="mailto:josephinegoudji@gmail.com?subject=Your%20portfolio"><code>josephinegoudji@gmail.com</code></a></span>
         <span><span lang="fr">Basée à Lille, France · Mobile à l’international</span><span lang="en">Based in Lille, France · Open to relocation</span></span>
       </div>
     </div></div></div>
@@ -698,6 +696,10 @@ body{background:var(--vert)}
 <script>
 (function(){
   var d=document, root=d.documentElement;
+  /* Échelle du bureau : suit la largeur et la hauteur de la fenêtre pour que l'écran du portable ne passe jamais sous la salutation */
+  var big=matchMedia('(min-width:761px)');
+  function fit(){if(!big.matches){root.style.removeProperty('--u');return}var u=Math.max(.5,Math.min(1,innerWidth/1440,innerHeight/900));root.style.setProperty('--u',u.toFixed(3))}
+  fit();addEventListener('resize',fit);
   /* Légère parallaxe de la perspective, jamais sur écran tactile ni en mouvement réduit */
   if(!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)&&window.matchMedia&&matchMedia('(pointer:fine)').matches){
     var raf=0,px=0;

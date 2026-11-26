@@ -45,10 +45,10 @@ html[data-lang="en"] [lang="fr"]:not([data-keep]){display:none!important}
 
 /* Salutation */
 .greet{position:absolute;z-index:5;left:clamp(18px,4.2vw,72px);top:clamp(22px,5.5vh,64px);max-width:min(600px,46vw);color:#fff}
-.hello{margin:0 0 .1rem;font:700 clamp(1.7rem,2.6vw,2.4rem)/1 var(--main);color:var(--jaune);transform:rotate(-2deg);transform-origin:left}
-.greet h1{margin:0;font:800 clamp(2.5rem,5.6vw,5rem)/.94 var(--titre);letter-spacing:-.03em;text-wrap:balance}
-.role{margin:.9rem 0 0;font-weight:500;font-size:clamp(.98rem,1.25vw,1.15rem);line-height:1.4;color:#EAF1ED;max-width:34ch}
-.punch{position:relative;display:inline-block;margin:.9rem 0 0;font:700 clamp(1.4rem,2.1vw,1.9rem)/1.12 var(--main);color:var(--jaune)}
+.hello{margin:0 0 .1rem;font:700 clamp(1.4rem,min(2.6vw,4.2vh),2.4rem)/1 var(--main);color:var(--jaune);transform:rotate(-2deg);transform-origin:left}
+.greet h1{margin:0;font:800 clamp(2.2rem,min(5.6vw,8.9vh),5rem)/.94 var(--titre);letter-spacing:-.03em;text-wrap:balance}
+.role{margin:clamp(.4rem,1.6vh,.9rem) 0 0;font-weight:500;font-size:clamp(.9rem,min(1.25vw,1.9vh),1.15rem);line-height:1.4;color:#EAF1ED;max-width:34ch}
+.punch{position:relative;display:inline-block;margin:clamp(.5rem,1.6vh,.9rem) 0 0;font:700 clamp(1.25rem,min(2.1vw,3.4vh),1.9rem)/1.12 var(--main);color:var(--jaune)}
 .sky{position:absolute;z-index:1;left:44%;top:64px;width:min(34vw,480px);height:auto;pointer-events:none;overflow:visible}
 .punch svg{position:absolute;left:0;bottom:-14px;width:100%;height:18px;overflow:visible}
 
@@ -56,9 +56,9 @@ html[data-lang="en"] [lang="fr"]:not([data-keep]){display:none!important}
 @media (max-width:760px){.greet{position:relative;left:auto;top:auto;max-width:none;padding:118px 18px 0}.greet h1{font-size:2.6rem}.sky{display:none}}
 
 /* ---------- Sa photo : polaroïd scotché, pastille dans le panneau ---------- */
-.polaroid{position:absolute;z-index:6;display:block;width:clamp(124px,11.6vw,172px);padding:7px 7px 0;background:#fff;border:2px solid var(--vert-nuit);border-radius:4px;box-shadow:var(--ombre-douce);color:var(--vert-nuit);text-decoration:none;transform:rotate(var(--r,4deg));transition:transform .4s var(--ease)}
+.polaroid{position:absolute;z-index:6;display:block;width:clamp(96px,min(11.6vw,15vh),172px);padding:7px 7px 0;background:#fff;border:2px solid var(--vert-nuit);border-radius:4px;box-shadow:var(--ombre-douce);color:var(--vert-nuit);text-decoration:none;transform:rotate(var(--r,4deg));transition:transform .4s var(--ease)}
 .polaroid img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;background:var(--papier)}
-.pol-cap{display:block;padding:.2rem 0 .4rem;text-align:center;font:700 1.55rem/1.15 var(--main)}
+.pol-cap{display:block;padding:.2rem 0 .4rem;text-align:center;white-space:nowrap;font:700 clamp(1.05rem,min(1.9vw,3.2vh),1.55rem)/1.15 var(--main)}
 .pol-tape{position:absolute;left:50%;top:-13px;width:66px;height:24px;translate:-50% 0;background:var(--vert-feuille);opacity:.85;transform:rotate(-4deg)}
 .polaroid:hover{transform:rotate(calc(var(--r,4deg) - 3deg)) translateY(-5px)}
 .polaroid:focus-visible{outline:3px solid var(--vert-nuit);outline-offset:6px;box-shadow:0 0 0 9px var(--jaune)}

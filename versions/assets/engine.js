@@ -17,6 +17,7 @@
     if (btnEn) btnEn.setAttribute('aria-pressed', l === 'en' ? 'true' : 'false');
     var m = d.querySelector('meta[name="description"]'); if (m) m.setAttribute('content', l === 'en' ? descEn : descFr);
     d.title = l === 'en' ? 'Joséphine Goudji · SEO/GEO, content & digital growth' : 'Joséphine Goudji · SEO/GEO, contenu & développement digital';
+    d.querySelectorAll('a[data-href-fr]').forEach(function (a) { a.setAttribute('href', a.getAttribute(l === 'en' ? 'data-href-en' : 'data-href-fr')); });
     d.querySelectorAll('img[data-alt-en]').forEach(function (i) { i.alt = i.getAttribute(l === 'en' ? 'data-alt-en' : 'data-alt-fr') || i.alt; });
     if (save) { try { localStorage.setItem(KEY, l); } catch (e) {} }
   }
@@ -62,6 +63,22 @@
     for (var i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / len);
     var n = c.createBufferSource(), ng = c.createGain(), nf = c.createBiquadFilter();
     nf.type = 'lowpass'; nf.frequency.value = 900; ng.gain.value = .12; n.buffer = buf; n.connect(nf); nf.connect(ng); ng.connect(c.destination); n.start(t);
+  }
+  /* Bruit de page qu'on tourne : du papier qui frotte (bruit filtré, jamais de fichier audio) */
+  function paper(kind) {
+    if (!soundOn || !unlocked) return; var c = audio(); if (!c) return; var t = c.currentTime;
+    var open = kind === 'open', dur = open ? .62 : .42, len = Math.floor(c.sampleRate * dur);
+    var buf = c.createBuffer(1, len, c.sampleRate), ch = buf.getChannelData(0), i;
+    for (i = 0; i < len; i++) { var x = i / len; ch[i] = (Math.random() * 2 - 1) * Math.sin(Math.PI * Math.pow(x, .65)) * (.5 + .5 * Math.random()); }
+    var n = c.createBufferSource(), bp = c.createBiquadFilter(), hp = c.createBiquadFilter(), g = c.createGain();
+    n.buffer = buf; bp.type = 'bandpass'; bp.Q.value = .8; hp.type = 'highpass'; hp.frequency.value = 650;
+    bp.frequency.setValueAtTime(1500, t); bp.frequency.exponentialRampToValueAtTime(5600, t + dur * .85);
+    g.gain.setValueAtTime(.0001, t); g.gain.linearRampToValueAtTime(open ? .34 : .26, t + dur * .28); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    n.connect(bp); bp.connect(hp); hp.connect(g); g.connect(c.destination); n.start(t);
+    var o = c.createOscillator(), og = c.createGain(), s = t + dur * .72;
+    o.type = 'sine'; o.frequency.setValueAtTime(110, s); o.frequency.exponentialRampToValueAtTime(55, s + .1);
+    og.gain.setValueAtTime(.0001, s); og.gain.linearRampToValueAtTime(open ? .12 : .08, s + .01); og.gain.exponentialRampToValueAtTime(.0001, s + .14);
+    o.connect(og); og.connect(c.destination); o.start(s); o.stop(s + .16);
   }
   if (sndBtn) sndBtn.addEventListener('click', function () {
     soundOn = !soundOn; syncSnd(); try { localStorage.setItem('jg-sound', soundOn ? 'on' : 'off'); } catch (e) {}
@@ -148,5 +165,5 @@
     if (e.target.id === 'lb-close' || e.target === lb) lb.close();
   });
 
-  window.JG = { open: openPanel, close: closePanel, note: violin, thump: thump, sound: function () { return soundOn && unlocked; }, reduce: reduce, current: function () { return current ? current.getAttribute('data-panel') : null; } };
+  window.JG = { open: openPanel, close: closePanel, note: violin, thump: thump, paper: paper, sound: function () { return soundOn && unlocked; }, reduce: reduce, current: function () { return current ? current.getAttribute('data-panel') : null; } };
 })();
