@@ -62,17 +62,20 @@
     if (ctx.state !== 'running') { var r = ctx.resume(); if (r && r.catch) r.catch(function () {}); }
     return ctx;
   }
-  /* Une molette ou un glissement ne débloquent pas le son : on invite à toucher l'écran une fois */
+  /* Le défilement (molette, glissement du doigt) ne débloque jamais le son : c'est une règle des navigateurs.
+     On l'affiche donc tout de suite, sous forme d'une pastille à toucher qui fait entendre deux notes. */
   var asked = false;
   function askTap() {
     if (asked || !soundOn || unlocked) return; asked = true;
-    var b = d.createElement('div'); b.className = 'snd-ask'; b.setAttribute('role', 'status');
-    b.innerHTML = '<span lang="fr">Touche ou clique une fois pour activer le son</span><span lang="en">Tap or click once to turn sound on</span>';
+    var b = d.createElement('button'); b.type = 'button'; b.className = 'snd-ask';
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span lang="fr">Touche pour activer le son</span><span lang="en">Tap to turn sound on</span>';
     d.body.appendChild(b); if (sndBtn) sndBtn.classList.add('ask');
-    var gone = function () { b.remove(); if (sndBtn) sndBtn.classList.remove('ask'); };
-    setTimeout(gone, 6000);
-    ['touchend', 'pointerup', 'click', 'keydown'].forEach(function (t) { d.addEventListener(t, gone, { once: true, capture: true }); });
+    var done = false, gone = function () { if (done) return; done = true; b.remove(); if (sndBtn) sndBtn.classList.remove('ask'); };
+    b.addEventListener('click', function () { unlock(); violin(392, 0, .9, .09); violin(587.33, .22, 1.1, .09); gone(); });
+    setTimeout(gone, 20000);
+    ['touchend', 'pointerup', 'click', 'keydown'].forEach(function (t) { d.addEventListener(t, function () { setTimeout(gone, 60); }, { once: true, capture: true }); });
   }
+  setTimeout(askTap, 900);
   function violin(freq, at, dur, vol) {
     if (soundOn && !unlocked) { askTap(); return; }
     if (!soundOn || !unlocked) return; var c = audio(); if (!c) return;

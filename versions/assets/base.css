@@ -180,7 +180,9 @@ summary:hover{box-shadow:var(--autocollant)}
 .panel-foot{margin:2.4rem 0 .6rem;padding-top:1.2rem;border-top:3px dashed var(--points);display:flex;flex-wrap:wrap;gap:.7rem}
 
 /* ---------- Invitation à activer le son ---------- */
-.snd-ask{position:fixed;z-index:45;top:max(66px,calc(env(safe-area-inset-top) + 58px));right:max(12px,env(safe-area-inset-right));max-width:min(260px,calc(100vw - 24px));padding:.55rem .8rem;border:2px solid var(--vert-nuit);border-radius:12px;background:var(--jaune-postit);color:var(--vert-nuit);font:700 1.2rem/1.15 var(--main);box-shadow:var(--autocollant);text-align:center;transform:rotate(-1.5deg)}
+.snd-ask{position:fixed;z-index:45;top:max(66px,calc(env(safe-area-inset-top) + 58px));right:max(12px,env(safe-area-inset-right));display:inline-flex;align-items:center;gap:.5rem;min-height:44px;max-width:min(300px,calc(100vw - 24px));padding:.45rem .95rem;border:2px solid var(--vert-nuit);border-radius:999px;background:var(--jaune-postit);color:var(--vert-nuit);font:700 1.3rem/1.1 var(--main);box-shadow:var(--autocollant);cursor:pointer;transform:rotate(-1.5deg)}
+.snd-ask svg{flex:none;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:760px){.snd-ask{top:auto;right:auto;bottom:max(18px,calc(env(safe-area-inset-bottom) + 12px));left:50%;translate:-50% 0;transform:rotate(-1deg)}}
 .snd.ask{animation:ask 1.2s ease-in-out 3}
 @keyframes ask{50%{transform:scale(1.18)}}
 
