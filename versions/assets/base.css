@@ -122,6 +122,10 @@ html:not(.js) .panel{border-top:6px solid var(--vert-nuit)}
 .meta{order:2;margin:0 0 .5rem}
 .meta span{display:inline-block;padding:.15rem .65rem;border:2px solid var(--vert-nuit);border-radius:6px;background:var(--jaune-postit);box-shadow:var(--autocollant);font-weight:700;font-size:.9rem;transform:rotate(-1.2deg)}
 .summary{order:4}
+.section-head>.lead{order:4}
+.jopa-go{order:3;margin:.1rem 0 1rem}
+.go-note{margin:0 0 .5rem!important;font:700 1.7rem/1.1 var(--main);color:var(--vert)}
+.jopa-go .cta-row{margin:0}
 
 .case{margin:0 0 2.4rem}
 .case+.case,.grid-2+.case{margin-top:3.2rem;padding-top:2.4rem;border-top:3px dashed var(--points)}

@@ -152,6 +152,26 @@ html.js.mob-anim .seen .st-in{opacity:1}
   .f[data-sp="2"]{transform:rotate(1.1deg) translateX(6px)}
   .stage-c{padding-top:34px}
 }
+/* Téléphone : le livret se feuillette en défilant (une page à la fois, la couverture d'abord fermée) */
+@media (max-width:760px){.hud{position:absolute}}
+html.fold-on{scroll-snap-type:y proximity}
+.fold-hint{display:none}
+.pass.fold{padding-bottom:36px}
+.pass.fold .stage-c{padding:0;height:calc(min(80svh,620px) + 20px + 6*var(--step,58svh))}
+.pass.fold .book{position:sticky;top:10px;display:block;width:min(88vw,340px);height:min(80svh,620px);margin:0 auto;gap:0;perspective:1500px}
+.pass.fold .leaf{display:contents}
+.pass.fold .sheet{position:absolute;inset:0;min-height:0;margin:0;overflow:hidden;transform-origin:0 50%;transform:rotateY(calc(var(--a,0)*1deg))!important;z-index:var(--z,1);font-size:clamp(12.5px,calc(min(88vw,340px)/23),calc(80svh/36));box-shadow:0 14px 22px -10px rgba(0,0,0,.6)}
+.pass.fold .sheet.past90>*{visibility:hidden}
+.pass.fold .leaf.c0>.f{padding:0;border:0;background:none;box-shadow:none;border-radius:14px;overflow:visible}
+.pass.fold .leaf.c0>.f.past90{border:2px solid var(--vert-nuit);background:var(--papier-points);box-shadow:0 14px 22px -10px rgba(0,0,0,.6)}
+.pass.fold .cover-btn{height:100%;min-height:0}
+.pass.fold .cov{min-height:0;height:100%}
+.pass.fold .fold-hint{display:block;position:absolute;left:0;right:0;top:calc(100% + 8px);margin:0;text-align:center;font:700 1.35rem/1.2 var(--main);color:#fff;pointer-events:none}
+.pass.fold .fold-hint .fh1,.pass.fold[data-fp="0"] .fold-hint .fh1{display:none}
+.pass.fold[data-fp="1"] .fold-hint .fh0{display:none}
+.pass.fold[data-fp="1"] .fold-hint .fh1{display:inline}
+.pass.fold.hint-done .fold-hint{opacity:0}
+.pass.fold .snap{position:absolute;left:0;width:1px;height:1px;top:calc(var(--k)*var(--step,58svh));scroll-snap-align:start;scroll-margin-top:10px;pointer-events:none}
 .still *{animation:none!important;transition:none!important}
 </style>
 </head>
@@ -179,6 +199,7 @@ html.js.mob-anim .seen .st-in{opacity:1}
     <div class="pass-shadow" id="pshadow"></div>
     <div class="book" id="book" data-s="0">
       <span class="slab-l"></span>
+      <p class="fold-hint" id="fold-hint"><span class="fh0"><span lang="fr">Fais défiler pour tourner les pages</span><span lang="en">Scroll to turn the pages</span></span><span class="fh1"><span lang="fr">Chaque tampon ouvre une preuve</span><span lang="en">Every stamp opens a proof</span></span></p>
 
       <!-- Feuillet 0 : couverture (recto) et page d'identité (verso) -->
       <div class="leaf c0" style="--i:0;--z:4px">
@@ -558,7 +579,10 @@ html.js.mob-anim .seen .st-in{opacity:1}
     <div class="section-head">
       <span class="eyebrow"><span lang="fr">JOPA Music · Projet entrepreneurial en cours</span><span lang="en">JOPA Music · Entrepreneurial project in progress</span></span>
       <h2 id="jopa-h"><span lang="fr">Construire à partir des besoins</span><span lang="en">Building from real needs</span></h2>
-      <p class="lead"><span lang="fr">JOPA Music est mon projet de mise en relation entre musiciens et organisateurs d’événements. L’idée vient de mon expérience de violoniste&nbsp;: trouver et réserver un musicien est souvent plus compliqué qu’il n’y paraît. Le projet est en cours de développement.</span><span lang="en">JOPA Music is my project connecting musicians and event organisers. The idea comes from my own experience as a violinist: finding and booking a musician is often harder than it looks. The project is under development.</span></p>
+      <div class="jopa-go"><p class="go-note"><span lang="fr">Clique sur JOPA Music pour le voir en vrai</span><span lang="en">Click on JOPA Music to see it for real</span></p><div class="cta-row">
+      <a class="btn btn-primary" href="https://jopamusic.fr/" target="_blank" rel="noopener"><span lang="fr">Voir jopamusic.fr</span><span lang="en">Visit jopamusic.fr</span></a>
+      <a class="btn btn-ghost" href="https://app.jopamusic.fr/" target="_blank" rel="noopener"><span lang="fr">Voir l’application</span><span lang="en">Open the app</span></a>
+    </div></div><p class="lead"><span lang="fr">JOPA Music est mon projet de mise en relation entre musiciens et organisateurs d’événements. L’idée vient de mon expérience de violoniste&nbsp;: trouver et réserver un musicien est souvent plus compliqué qu’il n’y paraît. Le projet est en cours de développement.</span><span lang="en">JOPA Music is my project connecting musicians and event organisers. The idea comes from my own experience as a violinist: finding and booking a musician is often harder than it looks. The project is under development.</span></p>
     </div>
     <div class="grid-3">
       <article class="card">
@@ -574,10 +598,6 @@ html.js.mob-anim .seen .st-in{opacity:1}
         <p><span lang="fr">Définition du parcours de réservation et du positionnement, puis itérations sur le produit à mesure des retours.</span><span lang="en">Defining the booking journey and positioning, then iterating on the product as feedback comes in.</span></p>
         <p class="muted"><span lang="fr">Étape actuelle&nbsp;: recruter des musiciens et faire fonctionner progressivement la mise en relation.</span><span lang="en">Current step: recruiting musicians and getting the matchmaking to work step by step.</span></p>
       </article>
-    </div>
-    <div class="cta-row" style="margin-top:22px">
-      <a class="btn btn-ghost" href="https://jopamusic.fr/" target="_blank" rel="noopener"><span lang="fr">Voir jopamusic.fr</span><span lang="en">Visit jopamusic.fr</span></a>
-      <a class="btn btn-ghost" href="https://app.jopamusic.fr/" target="_blank" rel="noopener"><span lang="fr">Voir l’application</span><span lang="en">Open the app</span></a>
     </div>
   </div>
 </div></div>
@@ -767,8 +787,52 @@ html.js.mob-anim .seen .st-in{opacity:1}
   prev.addEventListener('click',function(){go(s-1)});
   next.addEventListener('click',function(){go(s+1)});
   dots.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-s'))})});
-  function toIdentity(){var t=leaves[0].querySelector('.b');if(t)t.scrollIntoView({behavior:JG.reduce?'auto':'smooth',block:'start'})}
-  function openIt(){if(wide.matches)go(1);else{JG.paper('open');toIdentity()}}
+  /* ---- Téléphone : le livret reste fermé, on tourne les pages en défilant ---- */
+  var fold=false, sheets=[], cur=0, stage=d.querySelector('.stage-c'), stepPx=0, top0=0, snaps=[], rafU=0, html=d.documentElement;
+  function ease(t){return t*t*(3-2*t)}
+  function layout(){
+    stepPx=Math.round(innerHeight*.58); stage.style.setProperty('--step',stepPx+'px');
+    top0=stage.getBoundingClientRect().top+scrollY-10;
+  }
+  function markCurrent(c){
+    sheets.forEach(function(sh,i){if(i===c)sh.removeAttribute('inert');else sh.setAttribute('inert','')});
+    pass.setAttribute('data-fp',c>0?'1':'0');
+    stampNow(sheets[c]);
+  }
+  function update(){
+    rafU=0; if(!fold)return;
+    var p=Math.max(0,Math.min(6,(scrollY-top0)/stepPx)); if(JG.reduce)p=Math.round(p);
+    sheets.forEach(function(sh,i){
+      var t=i<6?Math.max(0,Math.min(1,p-i)):0;
+      sh.style.setProperty('--a',(-168*ease(t)).toFixed(1));
+      sh.classList.toggle('past90',t>.5);
+      sh.style.visibility=t>=1?'hidden':'';
+    });
+    var c=Math.max(0,Math.min(6,Math.floor(p+.5)));
+    if(c!==cur){var was=cur;cur=c;JG.paper(was===0||c===0?'open':'flip');markCurrent(c)}
+  }
+  function onScroll(){if(!rafU)rafU=requestAnimationFrame(update)}
+  function goSheet(k,instant){window.scrollTo({top:top0+Math.max(0,Math.min(6,k))*stepPx,behavior:(instant||JG.reduce)?'auto':'smooth'})}
+  function initFold(){
+    if(fold)return; fold=true;
+    sheets=[].slice.call(book.querySelectorAll('.f,.b')).slice(0,7);
+    sheets.forEach(function(sh,i){sh.classList.add('sheet');sh.style.setProperty('--z',String(30-i))});
+    pass.classList.add('fold'); html.classList.add('fold-on'); if(!still&&!JG.reduce)html.classList.add('mob-anim');
+    stage.querySelectorAll('.snap').forEach(function(n){n.remove()});
+    for(var k=0;k<=6;k++){var sn=d.createElement('i');sn.className='snap';sn.setAttribute('aria-hidden','true');sn.style.setProperty('--k',k);stage.appendChild(sn)}
+    layout(); addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',function(){layout();onScroll()});
+    var at=/[?&]at=(\d)/.exec(location.search);
+    cur=0; markCurrent(0); update();
+    if(at){goSheet(Math.min(6,+at[1]),true);update()}
+  }
+  function endFold(){
+    if(!fold)return; fold=false; removeEventListener('scroll',onScroll);
+    pass.classList.remove('fold'); html.classList.remove('fold-on','mob-anim'); pass.removeAttribute('data-fp');
+    stage.querySelectorAll('.snap').forEach(function(n){n.remove()});
+    sheets.forEach(function(sh){sh.classList.remove('sheet','past90');sh.style.removeProperty('--a');sh.style.removeProperty('--z');sh.style.visibility='';sh.removeAttribute('inert')});
+    sheets=[]; setInert();
+  }
+  function openIt(){if(wide.matches)go(1);else if(fold)goSheet(1)}
   openBtn.addEventListener('click',openIt);
   cover.addEventListener('click',openIt);
   d.addEventListener('panel',function(e){if(e.detail.open)pass.classList.add('hint-done')});
@@ -777,17 +841,11 @@ html.js.mob-anim .seen .st-in{opacity:1}
     if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(s+1)}
     else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(s-1)}
   });
-  /* tampons : sur écran étroit ils sont déjà visibles, sans animation */
-  if(!wide.matches){
-    if('IntersectionObserver' in window&&!JG.reduce&&!still){
-      d.documentElement.classList.add('mob-anim');
-      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){JG.paper('flip');stampNow(e.target);io.unobserve(e.target)}})},{threshold:.3});
-      d.querySelectorAll('.f,.b').forEach(function(f){io.observe(f)});
-    }else d.querySelectorAll('.f,.b').forEach(function(f){f.classList.add('seen')});
-  }
-  wide.addEventListener&&wide.addEventListener('change',function(){setInert()});
-  var at=/[?&]at=(\d)/.exec(location.search); if(at)s=Math.min(MAX,+at[1]);
+  function sync(){if(wide.matches){endFold();render(true)}else{initFold()}}
+  wide.addEventListener&&wide.addEventListener('change',sync);
+  var at0=/[?&]at=(\d)/.exec(location.search); if(at0&&wide.matches)s=Math.min(MAX,+at0[1]);
   render(true);
+  if(!wide.matches)initFold();
 })();
 </script>
 </body>
