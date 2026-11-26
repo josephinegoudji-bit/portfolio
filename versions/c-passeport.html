@@ -768,7 +768,7 @@ html.js.mob-anim .seen .st-in{opacity:1}
   next.addEventListener('click',function(){go(s+1)});
   dots.forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-s'))})});
   function toIdentity(){var t=leaves[0].querySelector('.b');if(t)t.scrollIntoView({behavior:JG.reduce?'auto':'smooth',block:'start'})}
-  function openIt(){if(wide.matches)go(1);else toIdentity()}
+  function openIt(){if(wide.matches)go(1);else{JG.paper('open');toIdentity()}}
   openBtn.addEventListener('click',openIt);
   cover.addEventListener('click',openIt);
   d.addEventListener('panel',function(e){if(e.detail.open)pass.classList.add('hint-done')});
@@ -781,7 +781,7 @@ html.js.mob-anim .seen .st-in{opacity:1}
   if(!wide.matches){
     if('IntersectionObserver' in window&&!JG.reduce&&!still){
       d.documentElement.classList.add('mob-anim');
-      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){stampNow(e.target);io.unobserve(e.target)}})},{threshold:.3});
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){JG.paper('flip');stampNow(e.target);io.unobserve(e.target)}})},{threshold:.3});
       d.querySelectorAll('.f,.b').forEach(function(f){io.observe(f)});
     }else d.querySelectorAll('.f,.b').forEach(function(f){f.classList.add('seen')});
   }

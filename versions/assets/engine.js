@@ -30,15 +30,36 @@
   try { if (localStorage.getItem('jg-sound') === 'off') soundOn = false; } catch (e) {}
   function syncSnd() { if (sndBtn) sndBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false'); }
   syncSnd();
+  /* iPhone : le Web Audio est coupé par l'interrupteur silencieux, sauf si une balise <audio> (silencieuse) tourne en même temps.
+     Le silence est fabriqué ici, il n'y a aucun fichier audio. */
+  var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1), keep = null;
+  function silentWav() {
+    var sr = 8000, n = sr / 2, b = new Uint8Array(44 + n), v = new DataView(b.buffer), i;
+    function s(o, t) { for (var k = 0; k < t.length; k++) b[o + k] = t.charCodeAt(k); }
+    s(0, 'RIFF'); v.setUint32(4, 36 + n, true); s(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, sr, true); v.setUint32(28, sr, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); s(36, 'data'); v.setUint32(40, n, true);
+    for (i = 0; i < n; i++) b[44 + i] = 128;
+    return URL.createObjectURL(new Blob([b], { type: 'audio/wav' }));
+  }
+  function keepAlive() {
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
+    if (!isIOS) return;
+    try {
+      if (!keep) { keep = new Audio(silentWav()); keep.loop = true; keep.volume = .01; keep.setAttribute('playsinline', ''); }
+      var p = keep.play(); if (p && p.catch) p.catch(function () {});
+    } catch (e) {}
+  }
   function unlock() {
     if (!soundOn || unlocked) return;
-    if (audio()) unlocked = true;
-    if (unlocked) ['pointerdown', 'keydown', 'touchend', 'click'].forEach(function (t) { d.removeEventListener(t, unlock, true); });
+    var c = audio(); if (!c) return;
+    try { var b = c.createBuffer(1, 1, 22050), sr = c.createBufferSource(); sr.buffer = b; sr.connect(c.destination); sr.start(0); } catch (e) {}
+    keepAlive(); unlocked = true;
+    ['touchend', 'pointerup', 'click', 'keydown'].forEach(function (t) { d.removeEventListener(t, unlock, true); });
   }
-  ['pointerdown', 'keydown', 'touchend', 'click'].forEach(function (t) { d.addEventListener(t, unlock, true); });
+  ['touchend', 'pointerup', 'click', 'keydown'].forEach(function (t) { d.addEventListener(t, unlock, true); });
   function audio() {
     if (!ctx) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null; ctx = new AC(); }
-    if (ctx.state === 'suspended') ctx.resume();
+    if (ctx.state !== 'running') { var r = ctx.resume(); if (r && r.catch) r.catch(function () {}); }
     return ctx;
   }
   function violin(freq, at, dur, vol) {
@@ -82,7 +103,8 @@
   }
   if (sndBtn) sndBtn.addEventListener('click', function () {
     soundOn = !soundOn; syncSnd(); try { localStorage.setItem('jg-sound', soundOn ? 'on' : 'off'); } catch (e) {}
-    if (soundOn) { if (audio()) unlocked = true; violin(392, 0, .9, .09); violin(587.33, .22, 1.1, .09); }
+    if (!soundOn && keep) { try { keep.pause(); } catch (e) {} }
+    if (soundOn) { if (audio()) { unlocked = true; keepAlive(); } violin(392, 0, .9, .09); violin(587.33, .22, 1.1, .09); }
   });
 
   /* ---------- Panneaux ---------- */
