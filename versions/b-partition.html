@@ -43,28 +43,36 @@ body{background:var(--vert)}
 
 /* Téléphone : la portée est horizontale, on la fait glisser du doigt */
 .swipe-hint{display:none}
+.wave,.wave3d{display:none}
+.wave path,.wave3d path{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
 @media (max-width:760px){
   .score{padding-bottom:26px;min-height:100svh}
-  .hud{position:absolute}
-  .polaroid{position:absolute;left:auto;right:16px;top:208px;margin:0;width:92px;--r:5deg}
-  .greet .role{max-width:63%}
-  .greet .punch{max-width:63%}
-  .sc-world{margin-top:28px}
+  .hud{position:absolute;top:8px;gap:.35rem}
+  .hud .btn{min-height:34px;padding:.3rem .7rem;font-size:.8rem}
+  .hud .lang button{min-width:38px;min-height:32px;padding:0 .5rem;font-size:.85rem}
+  .hud .snd{width:36px;height:36px;min-height:36px;padding:0}
+  .hud .snd svg{width:19px;height:19px}
+  .greet{padding-top:52px}
+  .greet .hello{font-size:1.35rem}
+  .greet h1{font-size:2.2rem}
+  .greet .role{max-width:63%;margin-top:.3rem;font-size:.86rem;line-height:1.35}
+  .greet .punch{max-width:63%;margin-top:.45rem;font-size:1.2rem}
+  .polaroid{position:absolute;left:auto;right:16px;top:100px;margin:0;width:96px;--r:5deg}
+  .sc-world{margin-top:48px}
   .track{display:flex;flex-direction:row;gap:0;padding:0;height:372px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
   .track::-webkit-scrollbar{display:none}
   .track::before,.track::after{content:"";position:static;flex:0 0 12vw;width:auto;height:auto;background:none;box-shadow:none}
-  .lines{display:block;position:absolute;left:0;top:150px;height:125px;width:calc(12vw*2 + 76vw*10);pointer-events:none}
-  .lines i{position:absolute;left:0;right:0;height:5px;border-radius:3px;background:#fff;opacity:.92}
-  .lines i:nth-child(1){top:0}.lines i:nth-child(2){top:30px}.lines i:nth-child(3){top:60px}.lines i:nth-child(4){top:90px}.lines i:nth-child(5){top:120px}
-  .lines b{position:absolute;top:-2px;width:3px;height:129px;border-radius:2px;background:#fff;opacity:.7;left:calc(12vw + (var(--k) + 1)*76vw)}
+  .lines{display:none!important}
+  html.js .wave{display:block;position:sticky;left:0;flex:0 0 100vw;width:100vw;margin-right:-100vw;height:340px;align-self:flex-start;pointer-events:none;overflow:visible}
+
   .mv{flex:0 0 76vw;height:100%;min-height:0;scroll-snap-align:center;scroll-snap-stop:always;text-align:center;opacity:.6;transition:opacity .3s}
   .mv.on{opacity:1}
-  .mv-disc{left:50%;top:calc(212px + var(--p)*14px);translate:-50% -50%;width:62px;height:62px;transition:transform .35s var(--ease)}
+  .mv-disc{left:50%;top:calc(210px + var(--p)*14px + var(--wy,0px));translate:-50% -50%;width:62px;height:62px;transition:transform .35s var(--ease)}
   .mv.on .mv-disc{transform:scale(1.16);outline:4px solid var(--jaune);outline-offset:5px}
   .mv-cap{display:block;position:static}
   .mv-title{font-size:1.95rem;padding-top:6px}
   .mv-text{max-width:none;max-height:4.2em;overflow:hidden;margin:.2rem auto 0;padding:0 10px;font-size:.92rem;line-height:1.4}
-  .mv-go{position:absolute;left:50%;top:300px;translate:-50% 0;margin:0}
+  .mv-go{position:absolute;left:50%;top:322px;translate:-50% 0;margin:0}
   .mv-shot,.mv-start{display:none}
   .mv-contact{flex:0 0 76vw;scroll-snap-align:center;align-self:flex-start;margin:70px 0 0;padding:16px;min-width:0;text-align:left}
   .swipe-hint{display:block;margin:10px 0 0;text-align:center;font:700 1.5rem/1.1 var(--main);color:#fff}
@@ -82,8 +90,9 @@ body{background:var(--vert)}
   html.js .track{position:absolute;left:50%;top:66%;display:block;width:0;height:0;padding:0;gap:0;transform-style:preserve-3d;transform:rotateY(30deg) translateX(calc(var(--cam,0)*-1px))}
   html.js .track::before{display:none}
   html.js .lines{display:block;position:absolute;left:-1500px;top:-88px;width:7800px;height:176px;pointer-events:none}
-  html.js .lines i{position:absolute;left:0;right:0;height:6px;border-radius:3px;background:#fff;opacity:.92}
-  html.js .lines i:nth-child(1){top:0}.lines i:nth-child(2){top:44px}.lines i:nth-child(3){top:88px}.lines i:nth-child(4){top:132px}.lines i:nth-child(5){top:176px}
+  html.js .lines i{display:none}
+  html.js .wave3d{display:block;position:absolute;left:-1300px;top:-150px;width:3400px;max-width:none;height:300px;overflow:visible;pointer-events:none}
+  .wave3d path{stroke-width:6}
   html.js .clef{display:block;position:absolute;left:-470px;top:-150px;width:190px;min-width:190px;height:260px;max-width:none;pointer-events:none;overflow:visible;transform:rotateY(-30deg)}
   html.js .lines b{position:absolute;top:0;width:3px;height:182px;border-radius:2px;background:#fff;opacity:.7;left:calc(1500px + (var(--k) + .5)*var(--step)*1px)}
   html.js .bar-end{display:block;position:absolute;left:calc(var(--step)*8px + 360px);top:-88px;width:28px;height:182px;pointer-events:none}
@@ -91,7 +100,7 @@ body{background:var(--vert)}
   html.js .bar-end::before{left:0;width:5px}
   html.js .bar-end::after{left:14px;width:14px}
 
-  html.js .mv{position:absolute;left:calc(var(--k)*var(--step)*1px);top:calc(var(--p)*22px);width:0;height:0;min-height:0;transform-style:preserve-3d}
+  html.js .mv{position:absolute;left:calc(var(--k)*var(--step)*1px);top:calc(var(--p)*22px + var(--wy,0px));width:0;height:0;min-height:0;transform-style:preserve-3d}
   html.js .mv-shadow{display:block;position:absolute;left:-44px;top:-18px;width:112px;height:76px;border-radius:50%;background:rgba(0,0,0,.42);filter:blur(9px)}
   html.js .mv-disc{left:-46px;top:-46px;width:92px;height:92px;transform:translateZ(36px) rotateY(-30deg);transition:transform .55s var(--ease)}
   html.js .mv-disc::before{content:"";position:absolute;right:-2px;width:6px;height:56px;border-radius:3px;background:#fff;transition:opacity .35s}
@@ -102,7 +111,7 @@ body{background:var(--vert)}
   html.js .mv.on .mv-disc{transform:translateZ(78px) rotateY(-30deg) scale(1.14)}
   html.js .mv.on .mv-disc::after{content:"";position:absolute;inset:-16px;border:4px solid var(--jaune);border-radius:50%;opacity:0;animation:ring 2s ease-out infinite}
   @keyframes ring{0%{opacity:.95;transform:scale(.8)}100%{opacity:0;transform:scale(1.35)}}
-  html.js .mv-cap{position:absolute;left:0;bottom:60px;width:300px;text-align:center;transform:translateX(-50%) translateZ(60px) rotateY(-30deg);transform-origin:50% 100%;transition:transform .55s var(--ease),opacity .4s}
+  html.js .mv-cap{position:absolute;left:0;bottom:112px;width:300px;text-align:center;transform:translateX(-50%) translateZ(60px) rotateY(-30deg);transform-origin:50% 100%;transition:transform .55s var(--ease),opacity .4s}
   html.js .mv.on .mv-cap{transform:translateX(-50%) translateZ(96px) rotateY(-30deg)}
   html.js .mv-title{font-size:clamp(1.9rem,2.8vw,2.6rem)}
   html.js .mv-text,.mv-go{opacity:0;max-height:0;margin:0;overflow:hidden;transition:opacity .4s,max-height .4s}
@@ -165,6 +174,8 @@ body{background:var(--vert)}
   <div class="sc-world">
     <div class="track" id="track">
       <div class="lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><b style="--k:0"></b><b style="--k:1"></b><b style="--k:2"></b><b style="--k:3"></b><b style="--k:4"></b><b style="--k:5"></b><b style="--k:6"></b><b style="--k:7"></b></div>
+      <svg class="wave" id="wave" aria-hidden="true" focusable="false"><path/><path/><path/><path/><path/></svg>
+      <svg class="wave3d" id="wave3d" viewBox="-1300 -150 3400 300" aria-hidden="true" focusable="false"><path/><path/><path/><path/><path/></svg>
       <svg class="clef" viewBox="0 0 222 312" aria-hidden="true"><g fill="none" stroke="#FFD84D" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" opacity="1.0" transform="translate(0 0) rotate(0) scale(1.0)"><g><path d="M100 108 C124 104 146 118 143 142 C141 160 126 170 126 186 C126 204 154 214 152 244 C150 268 128 284 100 284"/><path d="M93 108 L93 52 M107 108 L107 52"/><path d="M92 52 C90 42 95 36 100 36 C105 36 110 42 108 52"/><path d="M100 36 C94 31 94 20 101 19 C108 19 111 27 104 30 C99 32 98 25 102 24"/><path d="M95.5 56 L95.5 268 M98.8 56 L98.8 268 M101.4 56 L101.4 268 M104.6 56 L104.6 268"/><path d="M84 226 C94 219 106 219 116 226"/><path d="M80 200 C76 210 84 218 80 232 M120 200 C124 210 116 218 120 232"/><path d="M92 262 L108 262 L103 282 L97 282 Z"/><path d="M100 108 C124 104 146 118 143 142 C141 160 126 170 126 186 C126 204 154 214 152 244 C150 268 128 284 100 284" transform="translate(200 0) scale(-1 1)"/><path d="M26 300 C78 232 152 150 208 94 M31 306 C83 238 157 156 213 100"/><path d="M20 304 L38 288" stroke-width="5"/></g><g transform="translate(1.6 -1.2)" opacity=".45"><path d="M100 108 C124 104 146 118 143 142 C141 160 126 170 126 186 C126 204 154 214 152 244 C150 268 128 284 100 284"/><path d="M93 108 L93 52 M107 108 L107 52"/><path d="M92 52 C90 42 95 36 100 36 C105 36 110 42 108 52"/><path d="M100 36 C94 31 94 20 101 19 C108 19 111 27 104 30 C99 32 98 25 102 24"/><path d="M95.5 56 L95.5 268 M98.8 56 L98.8 268 M101.4 56 L101.4 268 M104.6 56 L104.6 268"/><path d="M84 226 C94 219 106 219 116 226"/><path d="M80 200 C76 210 84 218 80 232 M120 200 C124 210 116 218 120 232"/><path d="M92 262 L108 262 L103 282 L97 282 Z"/><path d="M100 108 C124 104 146 118 143 142 C141 160 126 170 126 186 C126 204 154 214 152 244 C150 268 128 284 100 284" transform="translate(200 0) scale(-1 1)"/></g></g></svg>
       <div class="bar-end" aria-hidden="true"></div>
 <a class="mv up" href="#p-sdx" data-open="sdx" data-k="0" style="--k:0;--p:0"><span class="mv-shadow"></span><span class="mv-disc"><b>1</b></span><span class="mv-cap"><strong class="mv-title"><span lang="fr">SEO à grande échelle</span><span lang="en">SEO at scale</span></strong><span class="mv-text"><span lang="fr">SearchDex (SDX)&nbsp;: des pages SEO créées à grande échelle</span><span lang="en">SearchDex (SDX): SEO landing pages created at scale</span></span><span class="mv-go"><span lang="fr">Ouvrir</span><span lang="en">Open</span></span></span><img class="mv-shot" src="assets/img/gsc-thumb.webp" width="640" height="225" alt="" decoding="async"><span class="mv-start"><span lang="fr">Commence ici</span><span lang="en">Start here</span></span></a>
@@ -645,7 +656,25 @@ body{background:var(--vert)}
   var N=mv.length, FREQ=[392,440,493.88,587.33,659.25,783.99,880,987.77,1174.66];
   var wide=matchMedia('(min-width:761px)'), cur=0, cam=0, target=0, raf=0, lastStep=0, step=520;
   function stepPx(){var v=parseFloat(getComputedStyle(score).getPropertyValue('--step'));step=v>0?v:520;}
-  function paint(){score.style.setProperty('--cam',cam.toFixed(1));}
+  /* Portée courbée : cinq lignes ondulées dont la phase suit le défilement ; les notes se posent sur la courbe */
+  var wavePh=d.getElementById('wave'), wave3=d.getElementById('wave3d'), pPh=[].slice.call(wavePh.querySelectorAll('path')), p3=[].slice.call(wave3.querySelectorAll('path'));
+  var bars=[].slice.call(d.querySelectorAll('.lines b')), clef=d.querySelector('.clef'), barEnd=d.querySelector('.bar-end'), rafW=0;
+  function wy(xc,ph,A,Lp){return A*Math.sin(6.2832*xc/Lp+ph)}
+  function draw3d(){
+    var A=30, Lp=step*1.4, ph=JG.reduce?0:cam*.0065, xs=-1300, xe=2100, k, x, y, ds;
+    wave3.style.transform='translateX('+cam.toFixed(1)+'px)';
+    for(k=0;k<5;k++){ds='';for(x=xs;x<=xe;x+=24){y=-88+k*44+wy(x+cam,ph,A,Lp);ds+=(x===xs?'M':'L')+x.toFixed(0)+' '+y.toFixed(1)}p3[k].setAttribute('d',ds)}
+    mv.forEach(function(m,i){m.style.setProperty('--wy',wy(i*step,ph,A,Lp).toFixed(1)+'px')});
+    bars.forEach(function(b,i){b.style.transform='translateY('+wy((i+.5)*step,ph,A,Lp).toFixed(1)+'px)'});
+    if(clef)clef.style.transform='rotateY(-30deg) translateY('+wy(-470,ph,A,Lp).toFixed(1)+'px)';
+    if(barEnd)barEnd.style.transform='translateY('+wy(step*8+360,ph,A,Lp).toFixed(1)+'px)';
+  }
+  function drawPhone(){
+    var sx=track.scrollLeft, vw=innerWidth, sw=(mv[0]&&mv[0].offsetWidth)||vw*.76, Lp=sw*1.5, A=Math.min(26,vw*.065), ph=JG.reduce?0:sx*.011, st=10, n=Math.ceil((vw+40)/st), k, i, x, ds;
+    for(k=0;k<5;k++){ds='';for(i=0;i<=n;i++){x=-20+i*st;ds+=(i?'L':'M')+x.toFixed(1)+' '+(150+k*30+wy(x+sx,ph,A,Lp)).toFixed(1)}pPh[k].setAttribute('d',ds)}
+    mv.forEach(function(m,j){m.style.setProperty('--wy',wy(vw*.12+(j+.5)*sw,ph,A,Lp).toFixed(1)+'px')});
+  }
+  function paint(){score.style.setProperty('--cam',cam.toFixed(1));if(wide.matches)draw3d();}
   function tick(){var dd=target-cam;if(Math.abs(dd)<.5||JG.reduce){cam=target;paint();raf=0;return}cam+=dd*.1;paint();raf=requestAnimationFrame(tick)}
   function mark(){
     mv.forEach(function(m,i){m.classList.toggle('past',i===cur-1);m.classList.toggle('gone',i<cur-1);m.classList.toggle('on',i===cur);if(i===cur)m.setAttribute('aria-current','step');else m.removeAttribute('aria-current')});
@@ -712,10 +741,13 @@ body{background:var(--vert)}
     if(wide.matches||tick2||Date.now()<lockUntil)return;
     tick2=requestAnimationFrame(function(){tick2=0;var k=phoneIdx();if(k!==cur){cur=k;mark();JG.note(FREQ[k],0,1.0,.09);if(hint)hint.classList.add('gone')}});
   },{passive:true});
-  wide.addEventListener&&wide.addEventListener('change',function(){stepPx();target=cur*step;cam=target;paint()});
+  track.addEventListener('scroll',function(){if(wide.matches||rafW)return;rafW=requestAnimationFrame(function(){rafW=0;drawPhone()})},{passive:true});
+  addEventListener('resize',function(){if(!wide.matches)drawPhone()});
+  wide.addEventListener&&wide.addEventListener('change',function(){stepPx();target=cur*step;cam=target;paint();if(!wide.matches)drawPhone()});
   stepPx();
   var at=/[?&]at=(\d)/.exec(location.search); go(at?+at[1]:0,true);
   if(at||d.documentElement.classList.contains('still')){cam=target;paint()}
+  if(wide.matches)draw3d();else drawPhone();
 })();
 </script>
 </body>
